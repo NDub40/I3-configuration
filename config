@@ -149,9 +149,15 @@ for_window [class="urxvt"] border pixel 1
 # kill focused window
 bindsym $mod+q kill
 
-# A more modern dmenu replacement is rofi:
-# bindsym $mod+d exec rofi -modi drun -show drun 
-bindsym $mod+d exec dmenu_run -c -l 20
+# * Application Launcher Options *
+# * Rofi *
+# bindsym $mod+d exec rofi -modi drun -show drun
+#
+# Dmenu option's:
+# * Patched * go to suckless website for patching ;) 
+# bindsym $mod+d exec dmenu_run -c -l 20
+# * Not Patched *
+bindsym $mod+d exec dmenu_run
 
 # change focus
 bindsym $mod+h focus left

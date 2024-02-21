@@ -300,18 +300,18 @@ bindsym $mod+r mode "resize"
 # Color Settings for I3Bar and Windows #
 ########################################
 
-set $darkbluetrans	#08052be6
-set $darkblue		    #08052b
+set $darkbluetrans	  #08052be6
+set $darkblue		  #08052b
 set $lightblue		  #5294e2
 set $urgentred		  #e53935
-set $white			    #ffffff
-set $black			    #000000
-set $purple			    #e345ff
-set $darkgrey		    #383c4a
-set $grey			      #b0b5bd
+set $white			  #ffffff
+set $black			  #000000
+set $purple			  #e345ff
+set $darkgrey		  #383c4a
+set $grey			  #b0b5bd
 set $mediumgrey		  #8b8b8b
 set $yellowbrown	  #e1b700
-set $catblue		    #1E1E2E
+set $catblue		  #1E1E2E
 set $rosewater 		  #f5e0dc
 set $flamingo  		  #f2cdcd
 set $pink      		  #f5c2e7
@@ -342,7 +342,7 @@ set $crust     		  #11111b
 # Colors for Windows: #
 ##############################
 
-client.focused             #403D39 #403D39 #FFFFFF #FDF6E3
+  client.focused           #403D39 #403D39 #FFFFFF #FDF6E3
   client.focused_inactive  #2F3D44 #2F3D44 #FFFFFF #454948
   client.unfocused         #252522 #252522 #FFFFFF #454948
   client.urgent            #CB4B16 #FDF6E3 #1ABC9C #268BD2
@@ -358,7 +358,7 @@ bar {
     statusline $white
     separator  $purple
 #                          		Border 		        Bg		Txt		Indicator
-		focused_workspace	$mediumgrey	   	$grey		$darkgrey	$purple
+		focused_workspace	$mediumgrey	   	    $grey		$darkgrey	$purple
 		active_workspace	$lightblue      	$mediumgrey	$darkgrey	$purple
 		inactive_workspace	$darkgrey   		$darkgrey	$grey		$purple
 		urgent_workspace	$urgentred	    	$urgentred	$white		$purple

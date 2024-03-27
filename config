@@ -1,0 +1,311 @@
+#                                                                                             _ _____                    __ _                                                                             
+#                                                                                            (_)___ /    ___ ___  _ __  / _(_) __ _                                                                       
+#                                                                                            | | |_ \   / __/ _ \| '_ \| |_| |/ _` |                                                                      
+#                                                                                            | |___) | | (_| (_) | | | |  _| | (_| |                                                                      
+#                                                                                            |_|____/   \___\___/|_| |_|_| |_|\__, |                                                                      
+#                                                                                                                              |___/                                                                      
+#                                                                                                                                                                                                         
+#                                                                                                                                by Natasha Wilhelm                                                       
+#################################################################################################
+# <---------------- i3 Fonts, Mod Key, Layout, and extra options for windows -----------------> #
+#################################################################################################
+
+# Font for Window Titles:
+font pango:monospace 8
+
+# Set the Mod Key (Windows Key):
+set $mod Mod4
+
+# Default i3 Tiling Mode:
+workspace_layout default
+
+# Border Width Around Windows:
+new_window pixel 1
+
+# Set Inner & Outer gaps Width:
+gaps inner 3
+gaps outer 1
+
+####################################################################
+# <------------------Applications Keybindings -------------------> #
+####################################################################
+
+bindsym $mod+Return exec kitty
+bindsym $mod+w exec firefox
+bindsym $mod+n exec pcmanfm
+bindsym $mod+v exec kitty -e nvim
+
+# Restart i3 
+bindsym $mod+Shift+r restart
+
+# Kill focused Program
+bindsym $mod+q kill
+
+####################################################################
+# <-------------------- Autostart Applications ------------------> #
+####################################################################
+
+# Set Wallpaper:
+exec --no-startup-id sleep 1 && feh --bg-fill /home/natasha/Pictures/cute.jpg
+
+# Compositor
+exec_always --no-startup-id picom -b
+
+# Autotiling
+# If using ARCH based disto install using yay if using Fedora use autotiling script ;)
+exec_always --no-startup-id autotiling
+
+# Get authorizaton to work with polkit-gnome
+exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+
+# Start XDG autostart
+exec --no-startup-id dex-autostart --autostart --environment i3
+
+# Xss-Lock
+exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
+
+# NetworkManager
+exec --no-startup-id nm-applet
+
+# Desktop Notifucations
+exec --no-startup-id dbus-launch dunst --config ~/.config/dunst/dunstrc
+
+# Start Spotify at Login:
+exec --no-startup-id sleep 2 && spotify
+
+# Welcome Message ;)
+exec --no-startup-id notify-send "Welcome back $USER you sexy ass bitch!"
+
+# Tap to click
+exec xinput set-prop "SYNA2BA6:00 06CB:CE2D Touchpad" "libinput Tapping Enabled" 1
+
+###########################################################################################
+# <------------- Audio Controls, Volume, and Brightness Controls -----------------------> #
+###########################################################################################
+
+# Use pactl to adjust volume in PulseAudio.
+set $refresh_i3status killall -SIGUSR1 i3status
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
+bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
+
+# Keyboard music controls skip, play/pause, and stop
+bindsym XF86AudioPlay exec playerctl --player=spotify play-pause
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
+
+# Reidirect sound to headphones when pulugged in 
+bindsym $mod + p exec --no-startup-id /usr/local/bin/switch-audio-port
+
+# Light Appllication for brighness control located in AUR
+bindsym XF86MonBrightnessUp exec light -A 5;
+bindsym XF86MonBrightnessDown exec light -U 5;
+
+#############################################################
+# <----------------- Floating Rules ----------------------> #
+#############################################################
+
+# Set Floating 
+for_window [class="qt5ct" instance="qt5ct"] floating enable
+for_window [window_role="About"] floating enable
+
+# Set Border of floating window
+for_window [class="urxvt"] border pixel 1
+
+#########################################################################
+# <----------------- Application Launcher Options --------------------> #
+#########################################################################
+
+#       **** READ CAREFULLY! ****
+# Depending on if I'm using Rofi or Dmenu 
+#              * Rofi *
+bindsym $mod+d exec rofi -modi drun -show drun
+#
+#              * Dmenu *
+#             * Patched * 
+#  * go to suckless website for patching ;) * 
+# bindsym $mod+d exec dmenu_run -c -l 20
+#             * Dmenu *
+#           * Not Patched *
+# bindsym $mod+d exec dmenu_run
+
+################################################################################################
+# <----------------- Moving around I3, switching windows and workspaces ---------------------> #
+################################################################################################
+
+# Change Focus
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+
+# Change Focus with cursor keys 
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# Move Focused Window
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+
+# Move Focused window (with cursor keys)
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# Change I3 Layout (stacked, tabbed, toggle split)
+# bindsym $mod+s layout stacking
+# bindsym $mod+w layout tabbed
+# bindsym $mod+e layout toggle split
+
+######################################################################################################
+# <---------------------------- Configurations for Workspace Behaviours----------------------------> #
+######################################################################################################
+
+# Download Awesome font ;)
+# Defined Names for Workspaces
+set $ws1 "1:"
+set $ws2 "2:"
+set $ws3 "3:"
+set $ws4 "4:"
+set $ws5 "5:"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+set $ws10 "10:"
+
+# Programs open on these assigned workspaces:
+assign [class="Emacs"] $ws1
+assign [class="firefox"] $ws2
+assign [class="Pcmanfm"] $ws3
+assign [class="Virt-manager"] $ws4
+assign [class="libreoffice-startcenter"] $ws5
+assign [class="Spotify"] $ws10
+
+# Automatic focus on these specific Applications
+for_window [class=Emacs] focus
+for_window [class=firefox] focus
+for_window [class=Pcmanfm] focus
+for_window [class=Virt-manager] focus
+
+# Rules for spotify
+for_window [class="Spotify"] move to workspace $ws10
+
+# Switch to Workspace
+bindsym $mod+1 workspace number $ws1
+bindsym $mod+2 workspace number $ws2
+bindsym $mod+3 workspace number $ws3
+bindsym $mod+4 workspace number $ws4
+bindsym $mod+5 workspace number $ws5
+bindsym $mod+6 workspace number $ws6
+bindsym $mod+7 workspace number $ws7
+bindsym $mod+8 workspace number $ws8
+bindsym $mod+9 workspace number $ws9
+bindsym $mod+0 workspace number $ws10
+
+# Move Focused Container to Workspace
+bindsym $mod+Shift+1 move container to workspace number $ws1
+bindsym $mod+Shift+2 move container to workspace number $ws2
+bindsym $mod+Shift+3 move container to workspace number $ws3
+bindsym $mod+Shift+4 move container to workspace number $ws4
+bindsym $mod+Shift+5 move container to workspace number $ws5
+bindsym $mod+Shift+6 move container to workspace number $ws6
+bindsym $mod+Shift+7 move container to workspace number $ws7
+bindsym $mod+Shift+8 move container to workspace number $ws8
+bindsym $mod+Shift+9 move container to workspace number $ws9
+bindsym $mod+Shift+0 move container to workspace number $ws10
+
+#####################################
+# <---------- Exit i3 ------------> #
+#####################################
+
+mode "exit: [l]ogout, [r]eboot, [s]hutdown" {
+  bindsym l exec i3-msg exit
+  bindsym r exec systemctl reboot
+  bindsym s exec systemctl poweroff
+  bindsym Escape mode "default"
+  bindsym Return mode "default"
+}
+
+bindsym $mod+Shift+e mode "exit: [l]ogout, [r]eboot, [s]hutdown"
+
+############################################################################
+# <----------------- Color Settings for I3Bar and Windows ---------------> #
+############################################################################
+
+set $darkbluetrans	#08052be6
+set $darkblue		    #08052b
+set $lightblue		  #5294e2
+set $urgentred		  #e53935
+set $white			    #ffffff
+set $black			    #000000
+set $purple			    #e345ff
+set $darkgrey		    #383c4a
+set $grey			      #b0b5bd
+set $mediumgrey		  #8b8b8b
+set $yellowbrown	  #e1b700
+set $catblue		    #1E1E2E
+set $rosewater 		  #f5e0dc
+set $flamingo  		  #f2cdcd
+set $pink      		  #f5c2e7
+set $mauve     		  #cba6f7
+set $red       		  #f38ba8
+set $maroon    		  #eba0ac
+set $peach     		  #fab387
+set $green     		  #a6e3a1
+set $teal      		  #94e2d5
+set $sky       		  #89dceb
+set $sapphire  		  #74c7ec
+set $blue      		  #89b4fa
+set $lavender  		  #b4befe
+set $text      		  #cdd6f4
+set $subtext1  		  #bac2de
+set $subtext0  		  #a6adc8
+set $overlay2  		  #9399b2
+set $overlay1  		  #7f849c
+set $overlay0  		  #6c7086
+set $surface2  		  #585b70
+set $surface1  		  #45475a
+set $surface0  		  #313244
+set $base      		  #1e1e2e
+set $mantle    		  #181825
+set $crust     		  #11111b
+
+######################################################
+# <------------- Colors for Windows ---------------> #
+######################################################
+
+  client.focused           #e345ff #e345ff #FFFFFF #FDF6E3
+  client.focused_inactive  #2F3D44 #2F3D44 #FFFFFF #454948
+  client.unfocused         #252522 #252522 #FFFFFF #454948
+  client.urgent            #CB4B16 #FDF6E3 #1ABC9C #268BD2
+  client.placeholder       #000000 #0c0c0c #ffffff #000000 
+
+  client.background        #2B2C2B
+
+#################################################
+# <----------------- i3 Bar ------------------> #
+#################################################
+
+bar {
+  colors {
+    background $darkbluetrans
+    statusline $white
+    separator  $purple
+#                       Border 		      Bg		       Txt		    Indicator
+		focused_workspace	  $mediumgrey	   	$grey		     $darkgrey	$purple
+		active_workspace	  $lightblue      $mediumgrey	 $darkgrey	$purple
+		inactive_workspace	$darkgrey   		$darkgrey	   $grey		  $purple
+		urgent_workspace	  $urgentred	    $urgentred	 $white		  $purple
+  }
+  status_command i3status
+}
+########################################################################
+# <------------------------- End of Configuration -------------------> #
+########################################################################

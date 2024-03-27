@@ -1,2 +1,1 @@
-# I3configuration
-This is my daily driver Linux i3 window manager config.
+Very first i3 configuration. New and 2024 updated version in on master branch.
